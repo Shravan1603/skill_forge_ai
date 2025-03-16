@@ -1,14 +1,8 @@
 from langchain_groq import ChatGroq
-# from langchain_huggingface import HuggingFacePipeline
 from langchain_openai import ChatOpenAI
 from langchain_community.llms import Ollama
-# from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.memory import ConversationBufferMemory
-import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
+import streamlit as st
 
 def llm_model(provider="groq"):
     """Initialize the LLM model and memory based on the specified provider."""
@@ -24,20 +18,13 @@ def llm_model(provider="groq"):
                 max_tokens=None,
                 timeout=None,
                 max_retries=2,
-                api_key=os.getenv("GROQ_API_KEY")  # Fetch API key from environment
+                api_key=st.secrets["GROQ_API_KEY"]  # Fetch API key from Streamlit Secrets
             )
-        # elif provider == "huggingface":
-        #     llm = HuggingFacePipeline.from_model_id(
-        #         model_id="gpt2",  # Replace with your desired Hugging Face model
-        #         task="text-generation",
-        #         device="cpu",  # Use "cuda" for GPU
-        #         pipeline_kwargs={"max_length": 100}
-        #     )
         elif provider == "openai":
             llm = ChatOpenAI(
                 model="gpt-3.5-turbo",
                 temperature=0,
-                api_key=os.getenv("OPENAI_API_KEY")  # Fetch API key from environment
+                api_key=st.secrets["OPENAI_API_KEY"]  # Fetch API key from Streamlit Secrets
             )
         elif provider == "ollama":
             llm = Ollama(
@@ -48,7 +35,7 @@ def llm_model(provider="groq"):
         #     llm = ChatGoogleGenerativeAI(
         #         model="gemini-pro",
         #         temperature=0,
-        #         google_api_key=os.getenv("GOOGLE_API_KEY")  # Fetch API key from environment
+        #         google_api_key=st.secrets["GOOGLE_API_KEY"]  # Fetch API key from Streamlit Secrets
         #     )
         else:
             raise ValueError(f"Unsupported provider: {provider}")
