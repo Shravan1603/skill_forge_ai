@@ -15,10 +15,11 @@ conn = db.init_db()
 # Initialize the model and memory
 if 'llm' not in st.session_state or 'memory' not in st.session_state:
     try:
-        st.session_state['llm'], st.session_state['memory'] = llm_model()
+        st.session_state['llm'], st.session_state['memory'] = llm_model(provider="groq")
     except Exception as e:
         st.error(f"Failed to initialize model: {str(e)}")
         st.stop()
+
 
 
 # Password Hashing with hashlib

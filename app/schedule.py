@@ -198,7 +198,8 @@ def generate_schedule(conn):
     if st.button("🚀 Generate Schedule") and selected_task_name:
         # Initialize the selected LLM
         if llm_provider == "Groq":
-            llm = Groq(api_key=os.getenv("GROQ_API_KEY"))
+            llm = Groq(api_key=st.secrets["GROQ_API_KEY"])
+        
         # elif llm_provider == "Hugging Face":
         #     llm = HuggingFacePipeline.from_model_id(model_id=model_name, task="text-generation")
         # elif llm_provider == "OpenAI":
@@ -260,7 +261,7 @@ def generate_schedule(conn):
                 df.style
                 .set_properties(**{'background-color': '#f0f0f0', 'color': '#333333', 'border': '1px solid #ddd'})
                 .apply(lambda x: ['background-color: #e8f5e9' if x.name % 2 == 0 else '' for i in x], axis=1)
-            )
+            )   
 
             # Store the DataFrame in session state
             st.session_state['df'] = df
