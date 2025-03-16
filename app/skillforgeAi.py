@@ -206,7 +206,65 @@ if st.session_state['page'] == 'landing':
             """,
             unsafe_allow_html=True,
         )
+    st.divider()
 
+    # Future Enhancements Section
+    st.markdown(
+        """
+        <div class="future-enhancements">
+            <h2>Future Enhancements</h2>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # Grid Layout for Future Enhancements
+    col1, col2, col3, col4 = st.columns(4)  # Create 4 columns for the grid
+
+    with col1:
+       st.markdown(
+            """
+            <div class="future-card">
+                <h3>🛤️ Interactive Learning Paths</h3>
+                <p>Follow structured learning paths with milestones, quizzes, and real-world projects.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col2:
+        st.markdown(
+            """
+            <div class="future-card">
+                <h3>📅 AI Task Prioritization</h3>
+                <p>Let AI prioritize your tasks based on deadlines, importance, and your preferences.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col3:
+        st.markdown(
+            """
+            <div class="future-card">
+                <h3>🤖 AI Mentor</h3>
+                <p>Personalized AI mentor to guide you through your learning journey with real-time feedback.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col4:
+        st.markdown(
+            """
+            <div class="future-card">
+                <h3>🌍 Community Integration</h3>
+                <p>Connect with other learners, share progress, and collaborate on projects.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    st.divider()
     # Call-to-Action Button
     if st.button("Get Started", key="get_started", help="Click to start your skill-building journey"):
         st.session_state['page'] = 'login'  # Redirect to the login page
