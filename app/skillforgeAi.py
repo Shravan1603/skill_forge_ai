@@ -7,11 +7,11 @@ from add_task import add_task
 from schedule import generate_schedule
 from slots import get_time_slot
 from model import llm_model
- 
 import db
 
 # Initialize database connection
 conn = db.init_db()
+
 # Initialize the model and memory
 if 'llm' not in st.session_state or 'memory' not in st.session_state:
     try:
@@ -19,8 +19,6 @@ if 'llm' not in st.session_state or 'memory' not in st.session_state:
     except Exception as e:
         st.error(f"Failed to initialize model: {str(e)}")
         st.stop()
-
-
 
 # Password Hashing with hashlib
 def hash_password(password):
@@ -117,6 +115,30 @@ st.markdown(
         font-size: 14px;
         margin-top: 40px;
     }
+    .feature-card {
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #ffffff;
+        margin: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+        height: 100%;  /* Ensure equal height */
+    }
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .feature-card h3 {
+        color: #4CAF50;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .feature-card p {
+        color: #555555;
+        font-size: 16px;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -132,19 +154,58 @@ if st.session_state['page'] == 'landing':
             <strong>SkillForgeAI</strong> is your AI-powered companion for mastering new skills and achieving your goals. 
             Whether you're learning to code, improving communication, or mastering data science, SkillForgeAI provides 
             personalized insights, task management, and progress tracking to help you succeed.
-            <br><br>
-            With <strong>SkillForgeAI</strong>, you can:
-            <ul>
-                <li>📊 <strong>Dashboard</strong>: Track your progress, view upcoming tasks, and get AI-generated insights to stay on top of your learning journey.</li>
-                <li>🎯 <strong>New Learning Skills</strong>: Add new skills you want to learn, and let SkillForgeAI break them down into manageable subtasks.</li>
-                <li>⏰ <strong>Time Slots</strong>: Define your available time slots, and SkillForgeAI will automatically generate a personalized schedule for you.</li>
-                <li>🤖 <strong>AI-Powered Automation</strong>: SkillForgeAI intelligently generates subtasks and schedules based on your time slots, ensuring you make the most of your time.</li>
-            </ul>
-            Start your skill-building journey today and let <strong>SkillForgeAI</strong> guide you every step of the way!
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+    # Grid View for Features
+    st.markdown("### Key Features")
+    col1, col2, col3, col4 = st.columns(4)  # Create 4 columns for the grid
+
+    with col1:
+        st.markdown(
+            """
+            <div class="feature-card">
+                <h3>📊 Dashboard</h3>
+                <p>Track your progress, view upcoming tasks, and get AI-generated insights to stay on top of your learning journey.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col2:
+        st.markdown(
+            """
+            <div class="feature-card">
+                <h3>🎯 New Learning Skills</h3>
+                <p>Add new skills you want to learn, and let SkillForgeAI break them down into manageable subtasks.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col3:
+        st.markdown(
+            """
+            <div class="feature-card">
+                <h3>⏰ Time Slots</h3>
+                <p>Define your available time slots, and SkillForgeAI will automatically generate a personalized schedule for you.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col4:
+        st.markdown(
+            """
+            <div class="feature-card">
+                <h3>🤖 AI-Powered Automation</h3>
+                <p>SkillForgeAI intelligently generates subtasks and schedules based on your time slots, ensuring you make the most of your time.</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     # Call-to-Action Button
     if st.button("Get Started", key="get_started", help="Click to start your skill-building journey"):
@@ -237,7 +298,6 @@ elif st.session_state['page'] == 'dashboard':
     if panel_option == "Generate Schedule":
         generate_schedule(conn)
 
-       
     # Logout Button
     if st.sidebar.button("Logout"):
         st.session_state['logged_in'] = False
@@ -247,6 +307,3 @@ elif st.session_state['page'] == 'dashboard':
         st.session_state['page'] = 'landing'  # Redirect to the landing page
         st.success("Logged out successfully!")
         st.rerun()  # Force the app to rerun and update the page
-        
-
-    
