@@ -10,4 +10,4 @@ pandas
 openai
 plotly
 bcrypt
-  
+duckduckgo-search

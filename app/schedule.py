@@ -198,7 +198,7 @@ def generate_schedule(conn):
     if st.button("🚀 Generate Schedule") and selected_task_name:
         # Initialize the selected LLM
         if llm_provider == "Groq":
-            llm = Groq(api_key=st.secrets["GROQ_API_KEY"])
+            llm = Groq(api_key=st.secrets["general"]["groq_api_key"])
         
         # elif llm_provider == "Hugging Face":
         #     llm = HuggingFacePipeline.from_model_id(model_id=model_name, task="text-generation")
