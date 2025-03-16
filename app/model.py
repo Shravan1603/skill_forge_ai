@@ -18,13 +18,13 @@ def llm_model(provider="groq"):
                 max_tokens=None,
                 timeout=None,
                 max_retries=2,
-                api_key=st.secrets["GROQ_API_KEY"]  # Fetch API key from Streamlit Secrets
+                api_key=st.secrets["general"]["groq_api_key"]  # Fetch API key from Streamlit Secrets
             )
         elif provider == "openai":
             llm = ChatOpenAI(
                 model="gpt-3.5-turbo",
                 temperature=0,
-                api_key=st.secrets["OPENAI_API_KEY"]  # Fetch API key from Streamlit Secrets
+                api_key=st.secrets["general"]["openai_api_key"]    # Fetch API key from Streamlit Secrets
             )
         elif provider == "ollama":
             llm = Ollama(
